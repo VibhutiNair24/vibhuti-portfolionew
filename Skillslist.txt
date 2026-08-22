@@ -1,0 +1,128 @@
+Programming & Technical Stack (Core Languages)
+Python (Pandas, NumPy, SciPy)
+
+SQL (Microsoft Access, MySQL, T-SQL, PL/SQL)
+
+R Programming
+
+Advanced MS Excel (VBA, Macros, Power Query, Pivot Tables)
+
+DAX (Data Analysis Expressions for Power BI)
+
+PySpark 
+
+2. Data Visualization & Executive Reporting
+Power BI
+
+Tableau
+
+Looker / Looker Studio
+
+Executive Storytelling / Business Intelligence (BI)
+
+Interactive Dashboards & KPI Tracking
+
+Ad-hoc Reporting
+
+Matplotlib / Seaborn / Plotly
+
+3. Cloud Platforms, Data Warehousing & Engineering
+Amazon Web Services (AWS) (S3, EC2,Bucket)
+
+Microsoft Azure ( Azure ML, Data Factory)
+
+Google Cloud Platform (GCP) (BigQuery, Vertex AI)
+
+Snowflake / Databricks
+
+ETL / ELT Pipelines (Extract, Transform, Load)
+
+Data Warehousing & Data Lakes
+
+Apache Airflow (Data Orchestration)
+
+4. Advanced Analytics & Machine Learning (Data Scientist / ML)
+Machine Learning (Supervised / Unsupervised)
+
+Predictive Modeling & Forecasting
+
+Statistical Analysis & Hypothesis Testing
+
+A/B Testing & Experimentation
+
+Scikit-Learn / XGBoost / LightGBM
+
+Deep Learning Frameworks (TensorFlow, PyTorch, Keras)
+
+Natural Language Processing (NLP) & GenAI
+
+Exploratory Data Analysis (EDA)
+
+Feature Engineering & Dimensionality Reduction
+
+Time Series Analysis ( LSTM)
+
+5. Financial & Business Analytics (Financial & Business Analyst)
+Financial Modeling & Forecasting
+
+Discounted Cash Flow (DCF) & Valuation
+
+Variance Analysis & Sensitivity Analysis
+
+P&L (Profit & Loss) Management & Budgeting
+
+ROI & Margin Optimization
+
+Capital Budgeting & Cost-Benefit Analysis
+
+Requirements Gathering & User Stories (Agile/Scrum)
+
+Business Process Re-engineering (BPR)
+
+Process Mapping (BPMN) & Flowcharts
+
+6. Database Architecture & Quality
+Data Modeling (Star Schema, Snowflake Schema)
+
+Database Optimization & Query Tuning
+
+Data Wrangling / Data Cleaning
+
+Data Governance & Data Quality Control
+
+NoSQL Databases (MongoDB, DynamoDB)
+
+7. MLOps & Production Deployment
+MLOps (Model Monitoring & CI/CD for ML)
+
+Docker & Kubernetes
+
+REST API Integration / FastAPI 
+
+Version Control / Git / GitHub
+
+MLflow / Weights & Biases
+
+8. Methodologies, Strategy & Recruiter Search Terms
+Cross-Functional Collaboration
+
+Root Cause Analysis (RCA)
+
+Stakeholder Management
+
+Prescriptive Analytics
+
+Agile / Scrum / Jira
+
+Business Strategy & Market Intelligence
+
+Process Automation
+
+Customer Segmentation / Churn Analysis
+
+Risk Assessment & Mitigation
+
+Data Synthesis
+
+ANdroid,Java,Flutter,asp.net,react native Basic linux shell scripting BASH,c,c++,oracle ,
+AI TOOLS: Gemini,chatgpt,claude,copilot,grok,genspark,napkin,notebooklm,aistudio,julius,Datasquirrel

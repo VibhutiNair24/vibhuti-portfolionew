@@ -1,0 +1,25 @@
+<div class="cert-card" 
+     data-category="industrial" 
+     data-role="data-analyst data-scientist" 
+     data-title="Advanced SQL & BigQuery Optimization">
+  
+  <div class="cert-image-wrapper">
+    <img src="Certificates/New_Cert_Name.jpg" alt="Certificate Title" loading="lazy">
+  </div>
+
+  <div class="cert-details">
+    <span class="cert-tag">Industrial / Certification</span>
+    <h3>Advanced SQL & BigQuery Optimization</h3>
+    <p>Issued by: Google / Coursera</p>
+    
+    <!-- Role Focus Pills -->
+    <div class="role-pills">
+      <span class="pill pill-da">Data Analyst</span>
+      <span class="pill pill-ds">Data Scientist</span>
+    </div>
+
+    <button class="preview-btn" onclick="openModal('Certificates/New_Cert_Name.jpg', 'Advanced SQL', 'Key Metadata...')">
+      Instant Preview
+    </button>
+  </div>
+</div>

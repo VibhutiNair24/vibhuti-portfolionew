@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="universe">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Achievements Exhibition | Vibhuti Nair</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  /* --- UNIVERSE MODE --- */
+  [data-theme="universe"] {
+    --bg-base: #030008;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
+    --card-border: rgba(255, 255, 255, 0.2);
+    --modal-bg: rgba(11, 18, 32, 0.95);
+    
+    --universe-display: block;
+    --museum-display: none;
+
+    --card-grad-1: linear-gradient(135deg, rgba(147, 51, 234, 0.35), rgba(79, 70, 229, 0.25));
+    --card-grad-2: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(217, 119, 6, 0.25));
+    --card-grad-3: linear-gradient(135deg, rgba(6, 182, 212, 0.35), rgba(59, 130, 246, 0.25));
+    --card-grad-4: linear-gradient(135deg, rgba(236, 72, 153, 0.35), rgba(168, 85, 247, 0.25));
+    --card-grad-5: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25));
+    --card-grad-6: linear-gradient(135deg, rgba(239, 68, 68, 0.35), rgba(220, 38, 38, 0.25));
+    --card-grad-7: linear-gradient(135deg, rgba(99, 102, 241, 0.35), rgba(139, 92, 246, 0.25));
+    --card-grad-8: linear-gradient(135deg, rgba(20, 184, 166, 0.35), rgba(13, 148, 136, 0.25));
+  }
+
+  /* --- HIGH-DEF MUSEUM MODE --- */
+  [data-theme="museum"] {
+    --font-display: 'Cinzel', serif;
+    --bg-base: #0a080d;
+    --text-primary: #f5f0e1;
+    --text-secondary: #c5a880;
+    --card-border: rgba(212, 175, 55, 0.35);
+    --modal-bg: rgba(16, 13, 22, 0.98);
+
+    --universe-display: none;
+    --museum-display: block;
+
+    --card-grad-1: linear-gradient(135deg, rgba(45, 20, 20, 0.85), rgba(20, 10, 10, 0.85));
+    --card-grad-2: linear-gradient(135deg, rgba(50, 38, 15, 0.85), rgba(25, 18, 5, 0.85));
+    --card-grad-3: linear-gradient(135deg, rgba(18, 35, 45, 0.85), rgba(8, 18, 25, 0.85));
+    --card-grad-4: linear-gradient(135deg, rgba(40, 18, 45, 0.85), rgba(20, 8, 25, 0.85));
+    --card-grad-5: linear-gradient(135deg, rgba(15, 40, 28, 0.85), rgba(5, 20, 12, 0.85));
+    --card-grad-6: linear-gradient(135deg, rgba(45, 25, 15, 0.85), rgba(25, 12, 5, 0.85));
+    --card-grad-7: linear-gradient(135deg, rgba(28, 22, 45, 0.85), rgba(12, 8, 25, 0.85));
+    --card-grad-8: linear-gradient(135deg, rgba(15, 38, 38, 0.85), rgba(5, 20, 20, 0.85));
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--text-primary);
+    background-color: var(--bg-base);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding: 40px 20px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  #confetti-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2000;
+  }
+
+  .universe-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: var(--universe-display);
+    overflow: hidden;
+  }
+
+  .milky-way {
+    position: absolute;
+    width: 200vw;
+    height: 100vw;
+    top: -20vw;
+    left: -50vw;
+    background: radial-gradient(ellipse at center, 
+      rgba(147, 51, 234, 0.25) 0%, 
+      rgba(79, 70, 229, 0.18) 25%, 
+      rgba(6, 182, 212, 0.12) 50%, 
+      transparent 70%);
+    transform: rotate(-25deg);
+    filter: blur(40px);
+    animation: galaxyRotate 120s linear infinite;
+  }
+
+  @keyframes galaxyRotate {
+    0% { transform: rotate(-25deg) scale(1); }
+    50% { transform: rotate(-15deg) scale(1.1); }
+    100% { transform: rotate(-25deg) scale(1); }
+  }
+
+  .stars-layer {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 40px 70px, #a855f7, rgba(0,0,0,0)),
+      radial-gradient(1px 1px at 90px 40px, #38bdf8, rgba(0,0,0,0)),
+      radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 350px 350px;
+    opacity: 0.8;
+  }
+
+  .museum-wrapper {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    display: var(--museum-display);
+    overflow: hidden;
+  }
+
+  .museum-spotlight {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 0%, rgba(255, 223, 138, 0.18) 0%, transparent 60%),
+      radial-gradient(ellipse at 50% 0%, rgba(255, 223, 138, 0.22) 0%, transparent 65%),
+      radial-gradient(ellipse at 80% 0%, rgba(255, 223, 138, 0.18) 0%, transparent 60%);
+  }
+
+  .museum-wallpaper {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05) 2px, transparent 2.5px),
+      linear-gradient(rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.02) 1px, transparent 1px);
+    background-size: 30px 30px, 60px 60px, 60px 60px;
+    opacity: 0.8;
+  }
+
+  .container { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+
+  #theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 1px solid var(--card-border);
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    transition: transform 0.2s ease;
+  }
+  #theme-toggle:hover { transform: scale(1.05); }
+
+  .back-nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: 24px;
+  }
+
+  header { text-align: center; margin-bottom: 40px; }
+  .header-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #f59e0b, #38bdf8, #ec4899);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  p.subtitle { color: var(--text-secondary); font-size: 1.05rem; max-width: 650px; margin: 0 auto; line-height: 1.6; }
+
+  .stats-bar { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 28px 0; }
+  .stat-pill {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    backdrop-filter: blur(8px);
+    padding: 8px 18px;
+    border-radius: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+  }
+
+  .controls { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+  .filter-btn {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--card-border);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .filter-btn.active { color: #fff; background: linear-gradient(135deg, #38bdf8, #8b5cf6); border-color: transparent; }
+
+  .sector-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--card-border);
+  }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 24px; margin-bottom: 40px; }
+
+  .achievement-card {
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 18px;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .c-grad-1 { background: var(--card-grad-1); }
+  .c-grad-2 { background: var(--card-grad-2); }
+  .c-grad-3 { background: var(--card-grad-3); }
+  .c-grad-4 { background: var(--card-grad-4); }
+  .c-grad-5 { background: var(--card-grad-5); }
+  .c-grad-6 { background: var(--card-grad-6); }
+  .c-grad-7 { background: var(--card-grad-7); }
+  .c-grad-8 { background: var(--card-grad-8); }
+
+  .achievement-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+
+  .badge-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+
+  .card-date { font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-secondary); }
+  .card-title { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 8px; line-height: 1.3; }
+  .card-summary { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; margin-bottom: 16px; flex-grow: 1; }
+
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    border-top: 1px dashed var(--card-border);
+    padding-top: 10px;
+  }
+  .action-hint { color: var(--text-primary); font-weight: 600; }
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+  .split-modal {
+    background: var(--modal-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 1300px;
+    height: 85vh;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+
+  .modal-overlay.active .split-modal { transform: scale(1); }
+
+  .modal-image-pane {
+    flex: 0 0 75%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+  }
+
+  .modal-image-pane img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .modal-details-pane {
+    flex: 0 0 25%;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid var(--card-border);
+    overflow-y: auto;
+  }
+
+  .modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--card-border);
+    color: #fff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+  }
+
+  .modal-header h3 { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 8px; }
+  .modal-issuer { font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 20px; }
+
+  .meta-box {
+    background: rgba(0,0,0,0.25);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+  }
+  .meta-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .meta-row:last-child { margin-bottom: 0; }
+  .meta-label { color: var(--text-secondary); }
+
+  .cheers-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #ec4899, #8b5cf6);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 12px;
+    transition: transform 0.2s ease;
+  }
+  .cheers-btn:hover { transform: scale(1.02); }
+
+  .roadmap-hero {
+    margin: 30px 0 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .roadmap-card {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .roadmap-card:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
+  }
+
+  .roadmap-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    display: block;
+    object-fit: cover;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .quote-banner {
+    text-align: center;
+    padding: 18px 28px;
+    border-radius: 16px;
+    border: 1px solid var(--card-border);
+    position: relative;
+    overflow: hidden;
+    max-width: 850px;
+    width: 100%;
+    backdrop-filter: blur(12px);
+    transition: all 0.5s ease;
+  }
+
+  [data-theme="universe"] .quote-banner {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.25), rgba(6, 182, 212, 0.25));
+    box-shadow: 0 10px 30px rgba(147, 51, 234, 0.15);
+  }
+
+  [data-theme="museum"] .quote-banner {
+    background: linear-gradient(135deg, rgba(45, 30, 10, 0.85), rgba(20, 15, 5, 0.85));
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+  }
+
+  .quote-text {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3.5vw, 2.3rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffd700, #f59e0b, #ec4899, #38bdf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .quote-subtext {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  .verify-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(135deg, #38bdf8, #0284c7);
+  }
+
+  @media (max-width: 900px) {
+    .split-modal { flex-direction: column; height: 90vh; overflow-y: auto; }
+    .modal-image-pane { flex: 0 0 55%; min-height: 250px; }
+    .modal-details-pane { flex: 0 0 45%; border-left: none; border-top: 1px solid var(--card-border); }
+  }
+
+  .hide { display: none !important; }
+
+  .role-filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .filter-label {
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .role-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #e2e8f0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+  }
+
+  .role-btn:hover, .role-btn.active {
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    color: #000;
+    font-weight: 700;
+    border-color: #00f2fe;
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+  }
+
+  .role-pills {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .pill {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .pill-da { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
+  .pill-ba { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+  .pill-ds { background: rgba(168, 85, 247, 0.2); color: #c084fc; border: 1px solid #a855f7; }
+</style>
+</head>
+<body>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="universe-wrapper">
+    <div class="milky-way"></div>
+    <div class="stars-layer"></div>
+  </div>
+
+  <div class="museum-wrapper">
+    <div class="museum-spotlight"></div>
+    <div class="museum-wallpaper"></div>
+  </div>
+
+  <button id="theme-toggle">
+    <span id="theme-icon">🌌</span>
+    <span id="theme-text">THEME: UNIVERSE</span>
+  </button>
+
+  <div class="container">
+    <a href="index.html" class="back-nav">← RETURN_TO_PORTFOLIO</a>
+
+    <header>
+      <div class="header-badge">CLASSIFIED_RECORDS // 2026</div>
+      <h1 id="hero-title">Universe of Achievements</h1>
+      <p class="subtitle">A repository of academic honors, industrial certifications, and competitive recognitions earned across the digital domain.</p>
+      
+      <div class="stats-bar">
+        <div class="stat-pill">TOTAL_XP: <b>18,500+</b></div>
+        <div class="stat-pill">TOTAL_CERTS: <b id="total-cert-count">0</b></div>
+        <div class="stat-pill">VERIFIED_ON_CHAIN: <b>100%</b></div>
+      </div>
+
+      <div class="role-filter-container">
+        <span class="filter-label">🎯 Tailor View For:</span>
+        <button class="role-btn active" data-role-filter="all">All Roles</button>
+        <button class="role-btn" data-role-filter="data-analyst">📊 Data Analyst</button>
+        <button class="role-btn" data-role-filter="business-analyst">💼 Business Analyst</button>
+        <button class="role-btn" data-role-filter="data-scientist">🧪 Data Scientist (Fresher)</button>
+      </div>
+
+      <div class="roadmap-hero">
+        <div class="roadmap-card">
+          <img src="Achievements.jpg" alt="Vibhuti Nair Achievement Roadmap Gallery" loading="eager">
+        </div>
+        
+        <div class="quote-banner">
+          <div class="quote-text">
+            👁️ Vision &nbsp;•&nbsp; ⚔️ Valor &nbsp;•&nbsp; 🏆 Victory
+          </div>
+          <div class="quote-subtext">// THE CORE ROADMAP I LIVE & CODE BY</div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="filter-btn active" data-filter="all">ALL SECTORS</button>
+        <button class="filter-btn" data-filter="academic">SECTOR_01: ACADEMIC</button>
+        <button class="filter-btn" data-filter="industrial">SECTOR_02: INDUSTRIAL</button>
+        <button class="filter-btn" data-filter="microsoft">SECTOR_03: MICROSOFT</button>
+      </div>
+    </header>
+
+    <!-- SECTOR 1: ACADEMIC -->
+    <section id="sector-academic">
+      <div class="sector-title">🎓 Sector 1: The Academic Orbit</div>
+      <div class="grid">
+        
+        <div class="achievement-card c-grad-1 academic" data-role="data-analyst business-analyst data-scientist" data-title="Secondary School Certificate Topper" data-issuer="Ahilyanagar Radio 104 FM" data-date="Academic" data-id="10thmc.jpg" data-link="Certificates/10thmc.jpg">
+          <div class="card-top"><span class="badge-tag">City Topper</span><span class="card-date">SSC</span></div>
+          <h2 class="card-title">10th Standard Topper</h2>
+          <p class="card-summary">Recognized as My City Topper on Ahilyanagar Radio 104 FM.</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+            <span class="pill pill-ba">Business Analyst</span>
+            <span class="pill pill-ds">Data Scientist</span>
+          </div>
+          <div class="card-footer"><span>[ ACADEMIC ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-2 academic" data-role="data-analyst business-analyst data-scientist" data-title="11th Commerce Stream Topper" data-issuer="Commerce Stream" data-date="Academic" data-id="11th.jpg" data-link="Certificates/11th.jpg">
+          <div class="card-top"><span class="badge-tag">Stream Topper</span><span class="card-date">HSC</span></div>
+          <h2 class="card-title">11th Commerce Stream Topper</h2>
+          <p class="card-summary">Topper in entire Commerce stream among 5,000 students.</p>
+          <div class="role-pills">
+            <span class="pill pill-ba">Business Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ ACADEMIC ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-3 academic" data-role="data-analyst business-analyst data-scientist" data-title="BBA(CA) 2nd Year Academic Distinction" data-issuer="University Dept." data-date="Academic" data-id="bca2.jpg" data-link="Certificates/bca2.jpg">
+          <div class="card-top"><span class="badge-tag">Class Topper</span><span class="card-date">BBA(CA)</span></div>
+          <h2 class="card-title">BBA(CA) 2nd Year Topper</h2>
+          <p class="card-summary">Class Topper in 2nd Year BBA(CA) coursework.</p>
+          <div class="card-footer"><span>[ ACADEMIC ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-4 academic" data-role="data-analyst business-analyst data-scientist" data-title="Academic Topper MCA 1st Year" data-issuer="Postgraduate Dept." data-date="Academic" data-id="ac.jpg" data-link="Certificates/ac.jpg">
+          <div class="card-top"><span class="badge-tag">1st Rank</span><span class="card-date">MCA Year 1</span></div>
+          <h2 class="card-title">MCA 1st Year Academic Topper</h2>
+          <p class="card-summary">Highest academic performer in MCA 1st Year examinations.</p>
+          <div class="card-footer"><span>[ ACADEMIC ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-5 academic" data-role="data-analyst business-analyst data-scientist" data-title="Best Student MCA Department (2023–2025)" data-issuer="Dept. of Computer Applications" data-date="2023-2025" data-id="bs.jpg" data-link="Certificates/bs.jpg">
+          <div class="card-top"><span class="badge-tag">Department Award</span><span class="card-date">2023–2025</span></div>
+          <h2 class="card-title">Best Student Award</h2>
+          <p class="card-summary">Awarded Best Student among 100 MCA students across batch.</p>
+          <div class="card-footer"><span>[ ACADEMIC ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-6 academic" data-role="data-scientist" data-title="Java Academic Topper" data-issuer="Computer Science Department" data-date="Academic" data-id="jt.jpg" data-link="Certificates/jt.jpg">
+          <div class="card-top"><span class="badge-tag">Subject Honor</span><span class="card-date">Academic</span></div>
+          <h2 class="card-title">Java Academic Topper</h2>
+          <p class="card-summary">Recognized as the top academic scorer in core Java programming.</p>
+          <div class="role-pills">
+            <span class="pill pill-ds">Data Scientist</span>
+          </div>
+          <div class="card-footer"><span>[ ACADEMIC ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-7 academic" data-role="business-analyst" data-title="IMSCDR IT WAVES 2024 Team Leader" data-issuer="IMSCDR IT WAVES" data-date="2024" data-id="tl.jpg" data-link="Certificates/tl.jpg">
+          <div class="card-top"><span class="badge-tag">2nd Runner-Up</span><span class="card-date">2024</span></div>
+          <h2 class="card-title">IT WAVES Team Leadership</h2>
+          <p class="card-summary">Led a team of 8 people to 2nd Runner-Up position out of 8 competitive teams.</p>
+          <div class="role-pills">
+            <span class="pill pill-ba">Business Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ ACADEMIC ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTOR 2: INDUSTRIAL -->
+    <section id="sector-industrial">
+      <div class="sector-title">⚡ Sector 2: The Industrial Realm</div>
+      <div class="grid">
+
+        <div class="achievement-card c-grad-8 industrial" data-role="data-scientist" data-title="Android Development Certification" data-issuer="PHN Technology" data-date="Verified" data-id="and.jpg" data-link="Certificates/and.jpg">
+          <div class="card-top"><span class="badge-tag">Technical Cert</span><span class="card-date">PHN Tech</span></div>
+          <h2 class="card-title">Android Development</h2>
+          <p class="card-summary">PHN Technology recognized Android Development certification.</p>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-1 industrial" data-role="data-scientist" data-title="Generative AI Experience" data-issuer="BCGX & Forage" data-date="Verified" data-id="bcg genai.png" data-link="Certificates/bcg genai.png">
+          <div class="card-top"><span class="badge-tag">AI Engineering</span><span class="card-date">BCGX</span></div>
+          <h2 class="card-title">Generative AI Specialist</h2>
+          <p class="card-summary">BCGX and Forage recognized course and project in Generative AI.</p>
+          <div class="role-pills">
+            <span class="pill pill-ds">Data Scientist</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-2 industrial" data-role="data-analyst data-scientist" data-title="Data Science Certification" data-issuer="BCGX & Forage" data-date="Verified" data-id="bcg.png" data-link="Certificates/bcg.png">
+          <div class="card-top"><span class="badge-tag">Data Science</span><span class="card-date">BCGX</span></div>
+          <h2 class="card-title">Data Science Professional</h2>
+          <p class="card-summary">BCGX and Forage recognized course in Data Science & analytics.</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+            <span class="pill pill-ds">Data Scientist</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-3 industrial" data-role="data-analyst business-analyst data-scientist" data-title="AI Tools Master" data-issuer="Be10x" data-date="Verified" data-id="be 10x.png" data-link="Certificates/be 10x.png">
+          <div class="card-top"><span class="badge-tag">Mastery</span><span class="card-date">Be10x</span></div>
+          <h2 class="card-title">AI Tools Master</h2>
+          <p class="card-summary">Certified AI Tools Master by Be10x for productivity and AI integration.</p>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-4 industrial" data-role="data-scientist" data-title="India's Biggest AI Quizverse 2026" data-issuer="Campus Crew" data-date="2026" data-id="Campus Crew Unstop BiggestAI Quiz .jpeg" data-link="Certificates/Campus Crew Unstop BiggestAI Quiz .jpeg">
+          <div class="card-top"><span class="badge-tag">Competition</span><span class="card-date">2026</span></div>
+          <h2 class="card-title">AI Quizverse Participant</h2>
+          <p class="card-summary">Campus Crew recognized participant in India's Biggest AI Quizverse.</p>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-5 industrial" data-role="business-analyst" data-title="Cyber Security Quizzes (5 Badges)" data-issuer="MeitY (Govt of India)" data-date="Verified" data-id="cs.jpg" data-link="Certificates/cs.jpg">
+          <div class="card-top"><span class="badge-tag">Govt Honor</span><span class="card-date">MeitY</span></div>
+          <h2 class="card-title">Cyber Security Suite</h2>
+          <p class="card-summary">5 certificates from Ministry of Electronics & IT recognized quizzes.</p>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-6 industrial" data-role="data-analyst business-analyst" data-title="Data Analytics Professional" data-issuer="Deloitte & Forage" data-date="Verified" data-id="deloitte da.jpg" data-link="Certificates/deloitte da.jpg">
+          <div class="card-top"><span class="badge-tag">Analytics</span><span class="card-date">Deloitte</span></div>
+          <h2 class="card-title">Deloitte Data Analytics</h2>
+          <p class="card-summary">Deloitte and Forage recognized practical course in Data Analytics.</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+            <span class="pill pill-ba">Business Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-7 industrial" data-role="business-analyst" data-title="McKinsey Forward Learner" data-issuer="McKinsey & Company" data-date="2026" data-id="forward.jpg" data-link="Certificates/Forward20260707-7-5skyui.png">
+          <div class="card-top"><span class="badge-tag">Leadership</span><span class="card-date">2026</span></div>
+          <h2 class="card-title">McKinsey Forward Program</h2>
+          <p class="card-summary">Certified McKinsey Forward Learner focusing on problem solving & digital capabilities.</p>
+          <div class="role-pills">
+            <span class="pill pill-ba">Business Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-8 industrial" data-role="business-analyst data-analyst" data-title="Fundamentals of Digital Marketing" data-issuer="Google" data-date="Verified" data-id="gfdm.jpg" data-link="Certificates/gfdm.jpg">
+          <div class="card-top"><span class="badge-tag">Google Certified</span><span class="card-date">Google</span></div>
+          <h2 class="card-title">Digital Marketing</h2>
+          <p class="card-summary">Google Certified course in Fundamentals of Digital Marketing.</p>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-1 industrial" data-role="data-analyst business-analyst" data-title="Power BI Data Analyst" data-issuer="MITU Skillologies" data-date="Verified" data-id="mitu.jpg" data-link="Certificates/mitu.jpg">
+          <div class="card-top"><span class="badge-tag">BI Specialist</span><span class="card-date">MITU</span></div>
+          <h2 class="card-title">Power BI Analyst</h2>
+          <p class="card-summary">MITU Skillologies certified Power BI Data Analyst.</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+            <span class="pill pill-ba">Business Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-2 industrial" data-role="data-scientist" data-title="National Conference Research Paper" data-issuer="National Conference AI/ML" data-date="Verified" data-id="national.jpg" data-link="Certificates/National conference Research paper.png">
+          <div class="card-top"><span class="badge-tag">Research</span><span class="card-date">IJAAR</span></div>
+          <h2 class="card-title">AI/ML Research Paper</h2>
+          <p class="card-summary">Presented research paper in AI/ML at the IJAAR National Conference.</p>
+          <div class="role-pills">
+            <span class="pill pill-ds">Data Scientist</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-3 industrial" data-role="data-analyst" data-title="AI-Powered Power BI" data-issuer="Office Master" data-date="Verified" data-id="pbai.jpg" data-link="Certificates/pbai.png">
+          <div class="card-top"><span class="badge-tag">Power BI + AI</span><span class="card-date">Office Master</span></div>
+          <h2 class="card-title">AI-Powered Power BI</h2>
+          <p class="card-summary">Recognized for advanced analytics integration by Office Master.</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-4 industrial" data-role="data-analyst business-analyst" data-title="Data Analyst Proficient" data-issuer="Beep (Shark Tank Featured)" data-date="Verified" data-id="beep.png" data-link="Certificates/Vibhuti Nair- beep DA.png">
+          <div class="card-top"><span class="badge-tag">Data Analytics</span><span class="card-date">Beep</span></div>
+          <h2 class="card-title">Data Analyst Proficient</h2>
+          <p class="card-summary">Certified by Beep (a Shark Tank recognized organization).</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ INDUSTRIAL ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTOR 3: MICROSOFT -->
+    <section id="sector-microsoft">
+      <div class="sector-title">⭐ Sector 3: Microsoft Certifications & Honors</div>
+      <div class="grid">
+
+        <div class="achievement-card c-grad-5 microsoft" data-role="data-scientist" data-title="Artificial Intelligence & Machine Learning" data-issuer="Microsoft Elevate & AICTE" data-date="Verified" data-id="aiml.PNG" data-link="Certificates/ai-ml.PNG">
+          <div class="card-top"><span class="badge-tag">AICTE / MSFT</span><span class="card-date">AI / ML</span></div>
+          <h2 class="card-title">AI & Machine Learning</h2>
+          <p class="card-summary">Microsoft Elevate & AICTE recognized course in AI and Machine Learning.</p>
+          <div class="role-pills">
+            <span class="pill pill-ds">Data Scientist</span>
+          </div>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-6 microsoft" data-role="data-scientist" data-title="Azure Cloud Architecture" data-issuer="Microsoft Elevate & AICTE" data-date="Verified" data-id="azure.PNG" data-link="Certificates/azure.PNG">
+          <div class="card-top"><span class="badge-tag">Azure</span><span class="card-date">Cloud</span></div>
+          <h2 class="card-title">Microsoft Azure Specialist</h2>
+          <p class="card-summary">Microsoft Elevate & AICTE recognized course in Azure Cloud Computing.</p>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-7 microsoft" data-role="data-scientist" data-title="Cloud Computing Systems" data-issuer="Microsoft Elevate & AICTE" data-date="Verified" data-id="cloud.PNG" data-link="Certificates/cloud.PNG">
+          <div class="card-top"><span class="badge-tag">Cloud</span><span class="card-date">Elevate</span></div>
+          <h2 class="card-title">Cloud Computing</h2>
+          <p class="card-summary">Microsoft Elevate & AICTE recognized course in fundamental Cloud Systems.</p>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-8 microsoft" data-role="data-analyst business-analyst data-scientist" data-title="Microsoft Copilot Mastery" data-issuer="Microsoft Elevate & AICTE" data-date="Verified" data-id="copilot.PNG" data-link="Certificates/copilot.PNG">
+          <div class="card-top"><span class="badge-tag">GenAI</span><span class="card-date">Copilot</span></div>
+          <h2 class="card-title">Microsoft Copilot</h2>
+          <p class="card-summary">Microsoft Elevate & AICTE recognized course in Microsoft Copilot workflow.</p>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-1 microsoft" data-role="data-analyst business-analyst" data-title="Power BI Data Visualization" data-issuer="Microsoft Elevate & AICTE" data-date="Verified" data-id="powerbi.PNG" data-link="Certificates/powerbi.PNG">
+          <div class="card-top"><span class="badge-tag">Analytics</span><span class="card-date">Power BI</span></div>
+          <h2 class="card-title">Microsoft Power BI</h2>
+          <p class="card-summary">Microsoft Elevate & AICTE recognized course in Power BI analytics.</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+            <span class="pill pill-ba">Business Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-2 microsoft" data-role="data-analyst business-analyst" data-title="Microsoft Elevate Internship" data-issuer="Microsoft Elevate" data-date="March 2026" data-id="internmicrosoft.jpg" data-link="Certificates/internmicrosoft.png">
+          <div class="card-top"><span class="badge-tag">Internship</span><span class="card-date">March 2026</span></div>
+          <h2 class="card-title">Microsoft Internship</h2>
+          <p class="card-summary">Internship completion in Power BI & Data Analysis with Emerging Technologies.</p>
+          <div class="role-pills">
+            <span class="pill pill-da">Data Analyst</span>
+            <span class="pill pill-ba">Business Analyst</span>
+          </div>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-3 microsoft" data-role="data-analyst data-scientist" data-title="Microsoft Skill Badges" data-issuer="Microsoft Learn" data-date="Verified" data-id="badges.jpg" data-link="Certificates/badges.png">
+          <div class="card-top"><span class="badge-tag">Badges</span><span class="card-date">Portfolio</span></div>
+          <h2 class="card-title">Microsoft Badges Collection</h2>
+          <p class="card-summary">Collection of official Microsoft skill badges accumulated across tracks.</p>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">INSPECT ↗</span></div>
+        </div>
+
+        <div class="achievement-card c-grad-4 microsoft" data-role="data-analyst data-scientist" data-title="Microsoft Learn Achievements Profile" data-issuer="Microsoft Learn Platform" data-date="Live" data-id="learn.PNG" data-link="https://learn.microsoft.com/en-us/users/vibhutinair-9451/achievements">
+          <div class="card-top"><span class="badge-tag">Official Link</span><span class="card-date">Live Profile</span></div>
+          <h2 class="card-title">Microsoft Learn Achievements</h2>
+          <p class="card-summary">Complete live transcript of verified badges & trophies on Microsoft Learn.</p>
+          <div class="card-footer"><span>[ MICROSOFT ]</span><span class="action-hint">VERIFY LIVE ↗</span></div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- INSPECTOR LIGHTBOX -->
+  <div class="modal-overlay" id="inspector-modal">
+    <div class="split-modal">
+      <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+      <div class="modal-image-pane">
+        <img id="m-preview-img" src="" alt="Certificate Large Preview" onerror="this.src='https://placehold.co/800x600/0f172a/f8fafc?text=Certificate+Preview'">
+      </div>
+      <div class="modal-details-pane">
+        <div>
+          <div class="modal-header">
+            <h3 id="m-title">Certificate Title</h3>
+            <div class="modal-issuer" id="m-issuer">Issuer Organization</div>
+          </div>
+          <div class="meta-box">
+            <div class="meta-row"><span class="meta-label">RECORD_ID:</span><span id="m-id" style="color:var(--text-primary); font-weight:600;">ACH-000</span></div>
+            <div class="meta-row"><span class="meta-label">ISSUED:</span><span id="m-date" style="color:var(--text-primary); font-weight:600;">2026</span></div>
+            <div class="meta-row"><span class="meta-label">STATUS:</span><span style="color:#22c55e; font-weight:700;">✓ VERIFIED</span></div>
+          </div>
+          <button class="cheers-btn" id="cheers-trigger">🥂 Cheers! Celebrate</button>
+        </div>
+        <a href="#" target="_blank" class="verify-btn" id="m-link">OPEN ORIGINAL FILE ↗</a>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var themeToggle = document.getElementById('theme-toggle');
+  var themeIcon = document.getElementById('theme-icon');
+  var themeText = document.getElementById('theme-text');
+  var heroTitle = document.getElementById('hero-title');
+
+  function setTheme(theme) {
+    root.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+
+    if(theme === 'museum') {
+      themeIcon.textContent = '🏛️';
+      themeText.textContent = 'THEME: MUSEUM';
+      heroTitle.textContent = 'Grand Gallery of Artifacts';
+    } else {
+      themeIcon.textContent = '🌌';
+      themeText.textContent = 'THEME: UNIVERSE';
+      heroTitle.textContent = 'Universe of Achievements';
+    }
+  }
+
+  var savedTheme = localStorage.getItem('portfolio-theme') || 'universe';
+  setTheme(savedTheme);
+
+  themeToggle.addEventListener('click', function() {
+    var currentTheme = root.getAttribute('data-theme');
+    setTheme(currentTheme === 'universe' ? 'museum' : 'universe');
+  });
+
+  /* Confetti Engine */
+  var canvas = document.getElementById('confetti-canvas');
+  var ctx = canvas.getContext('2d');
+  var confetti = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function triggerConfetti() {
+    var colors = ['#f59e0b', '#38bdf8', '#ec4899', '#10b981', '#8b5cf6', '#ffd700'];
+    for(var i = 0; i < 90; i++) {
+      confetti.push({
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+        vx: (Math.random() - 0.5) * 18,
+        vy: (Math.random() - 0.7) * 18,
+        size: Math.random() * 8 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        rSpeed: (Math.random() - 0.5) * 10,
+        opacity: 1
+      });
+    }
+  }
+
+  function updateConfetti() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for(var i = 0; i < confetti.length; i++) {
+      var p = confetti[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.3;
+      p.rotation += p.rSpeed;
+      p.opacity -= 0.015;
+
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.opacity);
+      ctx.translate(p.x, p.y);
+      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.fillStyle = p.color;
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+      ctx.restore();
+    }
+    confetti = confetti.filter(p => p.opacity > 0);
+    requestAnimationFrame(updateConfetti);
+  }
+  requestAnimationFrame(updateConfetti);
+
+  /* Modal System */
+  var modal = document.getElementById('inspector-modal');
+  var modalClose = document.getElementById('modal-close-btn');
+  var cheersBtn = document.getElementById('cheers-trigger');
+  var cards = document.querySelectorAll('.achievement-card');
+
+  cards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      var imageSrc = card.getAttribute('data-link');
+      document.getElementById('m-preview-img').src = imageSrc;
+      document.getElementById('m-title').textContent = card.getAttribute('data-title');
+      document.getElementById('m-issuer').textContent = card.getAttribute('data-issuer');
+      document.getElementById('m-id').textContent = card.getAttribute('data-id');
+      document.getElementById('m-date').textContent = card.getAttribute('data-date');
+      document.getElementById('m-link').setAttribute('href', imageSrc);
+      modal.classList.add('active');
+      triggerConfetti();
+    });
+  });
+
+  cheersBtn.addEventListener('click', triggerConfetti);
+  modalClose.addEventListener('click', function() { modal.classList.remove('active'); });
+  modal.addEventListener('click', function(e) { if(e.target === modal) modal.classList.remove('active'); });
+
+  /* Sector Filter */
+  var filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+
+      var filter = this.getAttribute('data-filter');
+      ['academic', 'industrial', 'microsoft'].forEach(function(sec) {
+        var el = document.getElementById('sector-' + sec);
+        if(filter === 'all' || filter === sec) {
+          el.classList.remove('hide');
+        } else {
+          el.classList.add('hide');
+        }
+      });
+    });
+  });
+
+  /* Auto-Count Cards & Dynamic Border Palette */
+  document.addEventListener("DOMContentLoaded", () => {
+    const allCards = document.querySelectorAll(".achievement-card");
+    
+    // Auto Update Counter
+    const countElement = document.getElementById("total-cert-count");
+    if (countElement) {
+      countElement.innerText = allCards.length;
+    }
+
+    const neonPalette = [
+      "rgba(0, 242, 254, 0.6)",
+      "rgba(112, 0, 255, 0.6)",
+      "rgba(255, 0, 127, 0.6)",
+      "rgba(16, 185, 129, 0.6)",
+      "rgba(245, 158, 11, 0.6)"
+    ];
+
+    allCards.forEach((card, index) => {
+      const accentColor = neonPalette[index % neonPalette.length];
+      card.style.setProperty("--card-accent", accentColor);
+    });
+  });
+
+  /* Role Filter Engine */
+  const roleButtons = document.querySelectorAll(".role-btn");
+  const certCards = document.querySelectorAll(".achievement-card");
+
+  roleButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      roleButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filter = btn.getAttribute("data-role-filter");
+
+      certCards.forEach(card => {
+        const cardRoles = card.getAttribute("data-role") || "";
+        if (filter === "all" || cardRoles.includes(filter)) {
+          card.style.display = "flex";
+        } else {
+          card.style.display = "none";
+        }
+      });
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

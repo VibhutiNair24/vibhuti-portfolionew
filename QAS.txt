@@ -1,0 +1,87 @@
+Technical & Experience Criteria
+
+1. "What is Vibhuz's core tech stack and skill set?"
+
+Answer: Core Skills: Python, SQL, Tableau/Power BI, R, and Advanced Excel. Tech Stack: Pandas, NumPy, Scikit-learn, PostgreSQL, BigQuery, and Git. Specialized in Data Visualization, Predictive Analytics, and Dashboard Automation.
+
+2. "What are his top portfolio projects and business impact?"
+
+Answer: Highlights include:
+
+Include from our projects also mentiom some high data analtic projects built in powerbi sql python coming soon already built delievry soon
+
+3. "How many years of experience does he have?"
+
+Answer: Vibhuz brings 1 years of experience in data analytics which is backed with internships, translating raw complex datasets into actionable business insights across domains like [e.g., Tech, Finance, E-commerce].
+
+4. "Does Vibhuz have experience with Big Data or Cloud platforms?"
+
+Answer: Yes, proficient in querying large-scale datasets using Google BigQuery and AWS (S3, Redshift), along with optimizing SQL queries for high-performance data processing.
+
+Work Style, Availability & Fit
+
+5. "What is his current employment status and notice period?"
+
+Answer: Vibhuz is actively exploring new opportunities and can join within [e.g., Immediate / 10-15 days].
+
+6. "Is he open to remote, hybrid, or on-site roles?"
+
+Answer: Open to Remote, Hybrid, and On-site roles. Flexible with work arrangements and time zones for global MNC teams.
+
+7. "What location is he open to relocating to?"
+
+Answer: Open to relocation for the right opportunity [or mention preferred cities, e.g., Bangalore, Hyderabad, Pune, Mumbai, HYderabad, Kochi, Anywhere accross Indias HI TECH-Hubs].
+
+8. "What type of roles is he targeting?"
+
+Answer: Primary Focus: Data Analyst, Business Analyst, Business Intelligence Engineer (BIE), Product Analyst, and Data Scientist (Associate level).
+
+Recruiter Actions & Downloads
+
+9. "Where can I download Vibhuz's resume?"
+
+Answer: You can download the latest, ATS-friendly resume directly here: [Download Resume Button / Link].
+
+10. "How can I contact or schedule an interview with Vibhuz?"
+
+Answer: Reach out directly via email at [Your Email], connect on LinkedIn at [LinkedIn URL].
+11. "Can I see his GitHub or live dashboards?"
+
+Answer: Absolutely! Explore GitHub repositories at [GitHub URL] and interactive dashboards on Tableau Public at [Tableau URL].
+
+12. "Why hire Vibhuz over other candidates?"
+
+Answer: Vibhuz combines deep technical rigor (SQL/Python/ML) with a strong business mindset—focusing on ROI, metric tracking, and clear storytelling for executive stakeholders.
+
+Which role title or tech domain should we emphasize most in these answers to align with your target applications?
+13. "What is Vibhuz's educational background, certifications, and key achievements?"
+
+Answer: Holds a Degree in mention all we have
+
+14. "What specialized analytics domains or domain knowledge does he possess?"
+
+Answer: Mention a few of them
+
+Portfolio Navigation & Interactive Features
+
+15. "What are the unique sections on this portfolio, and where do they link?"
+
+Answer: Navigate seamlessly using these quick-links:
+
+Mention names with navigation links
+
+[Initiate Signal] ➔ Contact & Communication Preferences
+
+16. "What does the 'Trigger Handshake' button do?"
+
+Answer: Clicking Trigger Handshake initiates an instant connection protocol! It opens a quick-connect panel to instantly copy contact details, download the ATS-friendly resume, or trigger a direct email draft with pre-filled intro text.
+
+Communication Preferences & Avatar Lore
+
+17. "What is Vibhuz's preferred way to be contacted?"
+
+Answer: Email is strongly preferred for all primary discussions. Due to strict automated spam protection that auto-blocks unknown callers, phone calls are reserved for specialized cases and require prior notification via email or text/LinkedIn message first.
+
+18. "How did the idea for this personalized Avatar-based portfolio come about?"
+
+Answer: standard portfolios can feel static and transactional, but Vibhuz refuses to be just another face in the crowd. This interactive avatar experience was born from creativity fueled with innovation—a design choice made to ensure he always stands out while giving busy recruiters a memorable, high-tech way to explore his data impact.
