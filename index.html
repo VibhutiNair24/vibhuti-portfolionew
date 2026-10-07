@@ -5,10 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Vibhuti Nair | Data Analyst Portfolio</title>
 <meta name="description" content="Vibhuti Nair — Data Analyst. Power BI, Python, SQL, Machine Learning, AI-driven analytics." />
+<!-- Early Connections & Preloads -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<!-- Preload Hero Images & Loader Sequence Assets -->
+<link rel="preload" as="image" href="assets/loader-stage1.jpg" />
+<link rel="preload" as="image" href="assets/loader-stage2.jpg" />
+<link rel="preload" as="image" href="assets/loader-stage3.jpg" />
+<link rel="preload" as="image" href="assets/hero-photo.jpg" />
 <style>
   :root{
     --font-display:'Space Grotesk',sans-serif;
@@ -272,6 +278,116 @@
     .hero-actions,.social-row{justify-content:center;}
     .hero-photo{order:-1;}
   }
+  /* Fixed CSS for the 3-Stage Cinematic Loader */
+.lab-loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #030712;
+  z-index: 999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--font-mono);
+  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.6s ease;
+}
+
+.lab-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+}
+
+.avatar-wrapper {
+  position: relative;
+  width: 260px;
+  height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(0, 242, 254, 0.35);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  background: #0d1326;
+}
+
+.stage-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+}
+
+.stage-img.active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.scanline {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(0, 242, 254, 0.3), transparent);
+  animation: scan 2.5s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes scan {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+.speech-bubble {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  backdrop-filter: blur(12px);
+  padding: 12px 20px;
+  border-radius: 12px;
+  color: #38bdf8;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  width: 100%;
+}
+
+.status-pill {
+  font-size: 0.75rem;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  display: inline-block;
+}
+.status-loading { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
+.status-transform { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+.status-success { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+
+.sql-terminal {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 8px;
+}
+
+.lab-loader-overlay.zoom-out {
+  opacity: 0;
+  transform: scale(1.15);
+  pointer-events: none;
+}
+
+/* Fix for VibhuzIQ Panel display bug */
+.vibhuziq-panel[hidden] {
+  display: none !important;
+}
 
   /* ---------- video ----------
      Sizing rule: LANDSCAPE videos are the "hero" visual for their section, so they
@@ -1262,6 +1378,21 @@
 <link rel="preload" as="image" href="assets/loading.jfif">
 </head>
 <body>
+ <!-- Preloader Overlay HTML -->
+<div class="lab-loader-overlay" id="lab-loader">
+  <div class="lab-card">
+    <div class="avatar-wrapper">
+      <img src="assets/loader-stage1.jpg" alt="Init Stage" class="stage-img active" id="stage-1-img" decoding="async" />
+      <img src="assets/loader-stage2.jpg" alt="Transformation Stage" class="stage-img" id="stage-2-img" decoding="async" />
+      <img src="assets/loader-stage3.jpg" alt="Analysis Complete" class="stage-img" id="stage-3-img" decoding="async" />
+      <div class="scanline"></div>
+    </div>
+    <div class="speech-bubble">
+      <div class="status-pill status-loading" id="loader-pill">STAGE 1/3 — PARSING DATA</div>
+      <div class="sql-terminal" id="loader-sql">SELECT * FROM portfolio.raw_metrics;</div>
+    </div>
+  </div>
+</div>
   <!-- ANIMATED DATA LAB SPLASH SCREEN (3-STAGE CINEMATIC) -->
 <div id="data-lab-loader" class="lab-loader-overlay">
   <div class="lab-card">
@@ -3144,7 +3275,49 @@ ON Target.Goal = Source.Strategic_ROI;
     }, 800);
   }, 10500);
 });
+// Loader transition sequence
+(function runCinematicLoader() {
+  const loader = document.getElementById('lab-loader');
+  const img1 = document.getElementById('stage-1-img');
+  const img2 = document.getElementById('stage-2-img');
+  const img3 = document.getElementById('stage-3-img');
+  const pill = document.getElementById('loader-pill');
+  const sql = document.getElementById('loader-sql');
 
+  setTimeout(() => {
+    img1.classList.remove('active');
+    img2.classList.add('active');
+    pill.className = 'status-pill status-transform';
+    pill.textContent = 'STAGE 2/3 — EXECUTING ML PIPELINE';
+    sql.textContent = 'MODEL.FIT(X_train, y_train) -- Optimizer: Adam';
+  }, 700);
+
+  setTimeout(() => {
+    img2.classList.remove('active');
+    img3.classList.add('active');
+    pill.className = 'status-pill status-success';
+    pill.textContent = 'STAGE 3/3 — INSIGHTS GENERATED';
+    sql.textContent = 'OUTPUT: Dashboard deployed with 99.4% accuracy.';
+  }, 1400);
+
+  setTimeout(() => {
+    loader.classList.add('zoom-out');
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 600);
+  }, 2100);
+})();
+
+// Autoplay video initialization fix
+document.addEventListener('DOMContentLoaded', () => {
+  const v = document.getElementById('hero-demo-video');
+  if (v) {
+    v.play().catch(() => {
+      v.muted = true;
+      v.play();
+    });
+  }
+});
 })();
 </script>
 </body>
